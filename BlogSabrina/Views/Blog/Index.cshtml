@@ -1,0 +1,152 @@
+@model IEnumerable<BlogSabrina.Domain.Entities.BlogPost>
+@{
+    ViewData["Title"] = ViewBag.CategoryName != null ? $"Categoria: {ViewBag.CategoryName}" : "Refúgio das Palavras";
+}
+
+<div class="hero-section text-white py-5 mb-5">
+    <div class="container position-relative">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4 fw-bold">
+                    <span class="leaf-decoration"></span>
+                    @ViewData["Title"]
+                    <span class="leaf-decoration"></span>
+                </h1>
+                <p class="lead">Onde pensamentos florescem como folhas ao vento</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            @if (ViewBag.CategoryName != null)
+            {
+                <div class="mb-4">
+                    <a href="/Blog" class="btn btn-outline-secondary">← Voltar para todos os escritos</a>
+                </div>
+            }
+
+            @if (!Model.Any())
+            {
+                <div class="text-center py-5">
+                    <h3>Ainda não há escritos aqui</h3>
+                    <p class="text-muted">Como um jardim esperando a primavera...</p>
+                </div>
+            }
+            else
+            {
+                @foreach (var post in Model)
+                {
+                    <article class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="badge bg-@(GetCategoryColor(post.Category))">
+                                    @GetCategoryName(post.Category)
+                                </span>
+                                <small class="text-muted">@post.CreatedAt.ToString("dd/MM/yyyy")</small>
+                            </div>
+                            
+                            <h2 class="card-title h4">
+                                <a href="/Blog/Post/@post.Slug" class="text-decoration-none">@post.Title</a>
+                            </h2>
+                            
+                            <p class="card-text text-muted">@post.Summary</p>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    @foreach (var tag in post.Tags)
+                                    {
+                                        <span class="badge bg-light text-dark me-1">#@tag</span>
+                                    }
+                                </div>
+                                <a href="/Blog/Post/@post.Slug" class="btn btn-primary btn-sm">Ler mais</a>
+                            </div>
+                        </div>
+                    </article>
+                }
+            }
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Caminhos do Saber</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <a href="/Blog/Category/CienciasSociais" class="text-decoration-none">
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-primary me-2">
+                                    <i class="bi bi-people"></i>
+                                </span>
+                                <div>
+                                    <strong>Ciências Sociais</strong>
+                                    <br>
+                                    <small class="text-muted">A dança da humanidade</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="mb-3">
+                        <a href="/Blog/Category/SaudeMental" class="text-decoration-none">
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-success me-2">
+                                    <i class="bi bi-heart"></i>
+                                </span>
+                                <div>
+                                    <strong>Saúde Mental</strong>
+                                    <br>
+                                    <small class="text-muted">Cuidando da alma</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="mb-3">
+                        <a href="/Blog/Category/Carreira" class="text-decoration-none">
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-warning me-2">
+                                    <i class="bi bi-briefcase"></i>
+                                </span>
+                                <div>
+                                    <strong>Carreira</strong>
+                                    <br>
+                                    <small class="text-muted">Trilhas do crescimento</small>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Sobre este Refúgio</h5>
+                </div>
+                <div class="card-body">
+                    <p class="small">Como um bosque sagrado onde cada folha conta uma história, este espaço acolhe reflexões sobre a alma humana, o crescimento pessoal e os caminhos da vida.</p>
+                    <p class="small text-muted">Com carinho, Sabrina 🍃</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetCategoryName(BlogSabrina.Domain.Entities.Category category) => category switch
+    {
+        BlogSabrina.Domain.Entities.Category.CienciasSociais => "Ciências Sociais",
+        BlogSabrina.Domain.Entities.Category.SaudeMental => "Saúde Mental",
+        BlogSabrina.Domain.Entities.Category.Carreira => "Carreira",
+        _ => category.ToString()
+    };
+
+    string GetCategoryColor(BlogSabrina.Domain.Entities.Category category) => category switch
+    {
+        BlogSabrina.Domain.Entities.Category.CienciasSociais => "primary",
+        BlogSabrina.Domain.Entities.Category.SaudeMental => "success",
+        BlogSabrina.Domain.Entities.Category.Carreira => "warning",
+        _ => "secondary"
+    };
+}

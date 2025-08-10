@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --forest-green: #2d5016;
+  --sage-green: #87a96b;
+  --earth-brown: #8b4513;
+  --parchment: #f4f1e8;
+  --gold: #d4af37;
+  --deep-forest: #1a3409;
+  --mist: #e8f5e8;
+}
+
+body {
+  font-family: 'Crimson Text', serif;
+  background: linear-gradient(135deg, var(--parchment) 0%, var(--mist) 100%);
+  color: var(--deep-forest);
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cinzel', serif;
+  color: var(--forest-green);
+}
+
+.navbar {
+  background: linear-gradient(90deg, var(--forest-green), var(--sage-green)) !important;
+  border-bottom: 3px solid var(--gold);
+  box-shadow: 0 2px 10px rgba(45, 80, 22, 0.3);
+}
+
+.navbar-brand, .nav-link {
+  color: var(--parchment) !important;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: var(--gold) !important;
+}
+
+.card {
+  background: rgba(244, 241, 232, 0.9);
+  border: 2px solid var(--sage-green);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(45, 80, 22, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 60px;
+  height: 60px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,50 Q30,20 50,30 Q70,40 80,20 Q90,30 85,50 Q80,70 60,65 Q40,60 30,80 Q20,70 20,50" fill="%2387a96b" opacity="0.3"/></svg>') no-repeat;
+  background-size: contain;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, var(--forest-green), var(--sage-green));
+  border: 2px solid var(--gold);
+  color: var(--parchment);
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 10px 25px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, var(--sage-green), var(--gold));
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(45, 80, 22, 0.3);
+}
+
+.hero-section {
+  background: linear-gradient(135deg, var(--deep-forest) 0%, var(--forest-green) 50%, var(--sage-green) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><defs><pattern id="leaves" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M20,5 Q30,15 25,25 Q20,35 10,30 Q5,20 10,10 Q15,5 20,5" fill="%2387a96b" opacity="0.1"/></pattern></defs><rect width="200" height="200" fill="url(%23leaves)"/></svg>') repeat;
+  opacity: 0.3;
+}
+
+.category-icon {
+  background: linear-gradient(45deg, var(--gold), var(--earth-brown));
+  border: 3px solid var(--forest-green);
+}
+
+.badge {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 8px 15px;
+}
+
+.bg-primary { background: var(--forest-green) !important; }
+.bg-success { background: var(--sage-green) !important; }
+.bg-warning { background: var(--gold) !important; color: var(--deep-forest) !important; }
+
+footer {
+  background: var(--deep-forest);
+  color: var(--parchment);
+  border-top: 3px solid var(--gold);
+}
+
+.form-control {
+  border: 2px solid var(--sage-green);
+  border-radius: 10px;
+  background: var(--parchment);
+  font-family: 'Crimson Text', serif;
+}
+
+.form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+.post-content {
+  font-size: 1.1rem;
+  text-align: justify;
+}
+
+.post-content h3 {
+  color: var(--forest-green);
+  border-bottom: 2px solid var(--sage-green);
+  padding-bottom: 5px;
+  margin-top: 2rem;
+}
+
+.leaf-decoration {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,2 Q18,8 16,14 Q12,20 6,16 Q2,10 6,6 Q9,2 12,2" fill="%2387a96b"/></svg>') no-repeat center;
+  background-size: contain;
+  margin: 0 5px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}

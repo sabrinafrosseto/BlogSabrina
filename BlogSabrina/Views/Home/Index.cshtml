@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Blog da Sabrina";
+}
+
+<div class="hero-section bg-gradient-primary text-white py-5 mb-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-3 fw-bold mb-4">
+                    <span class="leaf-decoration"></span>
+                    Refúgio das Palavras
+                    <span class="leaf-decoration"></span>
+                </h1>
+                <p class="lead mb-4">Onde a sabedoria ancestral encontra os desafios modernos, e cada palavra é uma semente plantada no jardim da consciência</p>
+                <a href="/Blog" class="btn btn-light btn-lg me-3">Explorar Escritos</a>
+                <a href="#categorias" class="btn btn-outline-light btn-lg">Ver Caminhos</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <section id="categorias" class="mb-5">
+        <div class="row text-center mb-4">
+            <div class="col-12">
+                <h2 class="display-5 mb-3">
+                    <span class="leaf-decoration"></span>
+                    Os Três Caminhos Sagrados
+                    <span class="leaf-decoration"></span>
+                </h2>
+                <p class="lead text-muted">Como árvores que se entrelaçam na floresta, estes caminhos se conectam na jornada do crescimento humano</p>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm category-card">
+                    <div class="card-body text-center">
+                        <div class="category-icon bg-primary text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-people fs-1"></i>
+                        </div>
+                        <h4 class="card-title">Ciências Sociais</h4>
+                        <p class="card-text">A dança eterna da humanidade, onde cada gesto revela os mistérios da alma coletiva.</p>
+                        <a href="/Blog/Category/CienciasSociais" class="btn btn-primary">Explorar Caminho</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm category-card">
+                    <div class="card-body text-center">
+                        <div class="category-icon bg-success text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-heart fs-1"></i>
+                        </div>
+                        <h4 class="card-title">Saúde Mental</h4>
+                        <p class="card-text">O jardim interior onde cultivamos paz, resiliência e a sabedoria do autocuidado.</p>
+                        <a href="/Blog/Category/SaudeMental" class="btn btn-success">Explorar Caminho</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm category-card">
+                    <div class="card-body text-center">
+                        <div class="category-icon bg-warning text-white rounded-circle mx-auto mb-3">
+                            <i class="bi bi-briefcase fs-1"></i>
+                        </div>
+                        <h4 class="card-title">Carreira</h4>
+                        <p class="card-text">As trilhas do crescimento profissional, onde propósito e prosperidade se encontram.</p>
+                        <a href="/Blog/Category/Carreira" class="btn btn-warning">Explorar Caminho</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="text-center py-5 bg-light rounded">
+        <div class="container">
+            <h3 class="mb-3">Pronto para a jornada?</h3>
+            <p class="lead mb-4">Como folhas que seguem o vento, deixe-se guiar pela curiosidade</p>
+            <a href="/Blog" class="btn btn-primary btn-lg">Iniciar Jornada</a>
+        </div>
+    </section>
+</div>
+
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.category-icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-card {
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.hero-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+</style>

@@ -1,0 +1,152 @@
+@model BlogSabrina.Domain.Entities.BlogPost
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Blog">Refúgio</a></li>
+                    <li class="breadcrumb-item"><a href="/Blog/Category/@Model.Category">@GetCategoryName(Model.Category)</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
+
+            <article class="card shadow-sm">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <span class="badge bg-@(GetCategoryColor(Model.Category)) me-2">@GetCategoryName(Model.Category)</span>
+                        <small class="text-muted">Escrito em @Model.CreatedAt.ToString("dd/MM/yyyy") por @Model.Author</small>
+                    </div>
+
+                    <h1 class="card-title mb-4">
+                        <span class="leaf-decoration"></span>
+                        @Model.Title
+                        <span class="leaf-decoration"></span>
+                    </h1>
+
+                    <div class="post-content">
+                        @Html.Raw(Model.Content)
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Essências:</strong>
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <span class="badge bg-light text-dark me-1">#@tag</span>
+                            }
+                        </div>
+                        <div>
+                            <button class="btn btn-outline-primary btn-sm" onclick="sharePost()">
+                                <i class="bi bi-share"></i> Compartilhar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="mt-4">
+                <a href="/Blog/Category/@Model.Category" class="btn btn-outline-secondary">
+                    ← Mais escritos de @GetCategoryName(Model.Category)
+                </a>
+                <a href="/Blog" class="btn btn-primary ms-2">Ver todos os escritos</a>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Outros Caminhos</h5>
+                </div>
+                <div class="card-body">
+                    @foreach (var cat in Enum.GetValues<BlogSabrina.Domain.Entities.Category>().Where(c => c != Model.Category))
+                    {
+                        <div class="mb-3">
+                            <a href="/Blog/Category/@cat" class="text-decoration-none">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-@(GetCategoryColor(cat)) me-2">
+                                        <i class="bi bi-@(GetCategoryIcon(cat))"></i>
+                                    </span>
+                                    <div>
+                                        <strong>@GetCategoryName(cat)</strong>
+                                        <br>
+                                        <small class="text-muted">@GetCategoryDescription(cat)</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Sobre este escrito</h5>
+                </div>
+                <div class="card-body">
+                    <p class="small">@Model.Summary</p>
+                    <hr>
+                    <small class="text-muted">
+                        <strong>Autora:</strong> @Model.Author<br>
+                        <strong>Criado em:</strong> @Model.CreatedAt.ToString("dd/MM/yyyy")<br>
+                        <strong>Caminho:</strong> @GetCategoryName(Model.Category)
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function sharePost() {
+    if (navigator.share) {
+        navigator.share({
+            title: '@Model.Title',
+            text: '@Model.Summary',
+            url: window.location.href
+        });
+    } else {
+        navigator.clipboard.writeText(window.location.href);
+        alert('Link copiado para a área de transferência!');
+    }
+}
+</script>
+
+@functions {
+    string GetCategoryName(BlogSabrina.Domain.Entities.Category category) => category switch
+    {
+        BlogSabrina.Domain.Entities.Category.CienciasSociais => "Ciências Sociais",
+        BlogSabrina.Domain.Entities.Category.SaudeMental => "Saúde Mental",
+        BlogSabrina.Domain.Entities.Category.Carreira => "Carreira",
+        _ => category.ToString()
+    };
+
+    string GetCategoryColor(BlogSabrina.Domain.Entities.Category category) => category switch
+    {
+        BlogSabrina.Domain.Entities.Category.CienciasSociais => "primary",
+        BlogSabrina.Domain.Entities.Category.SaudeMental => "success",
+        BlogSabrina.Domain.Entities.Category.Carreira => "warning",
+        _ => "secondary"
+    };
+
+    string GetCategoryIcon(BlogSabrina.Domain.Entities.Category category) => category switch
+    {
+        BlogSabrina.Domain.Entities.Category.CienciasSociais => "people",
+        BlogSabrina.Domain.Entities.Category.SaudeMental => "heart",
+        BlogSabrina.Domain.Entities.Category.Carreira => "briefcase",
+        _ => "circle"
+    };
+
+    string GetCategoryDescription(BlogSabrina.Domain.Entities.Category category) => category switch
+    {
+        BlogSabrina.Domain.Entities.Category.CienciasSociais => "A dança da humanidade",
+        BlogSabrina.Domain.Entities.Category.SaudeMental => "Cuidando da alma",
+        BlogSabrina.Domain.Entities.Category.Carreira => "Trilhas do crescimento",
+        _ => ""
+    };
+}

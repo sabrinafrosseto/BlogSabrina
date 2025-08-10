@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: blog-sabrina
+    env: docker
+    dockerfilePath: ./BlogSabrina/Dockerfile
+    dockerContext: ./BlogSabrina
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:80

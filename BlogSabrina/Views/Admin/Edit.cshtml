@@ -1,0 +1,91 @@
+@model BlogSabrina.Application.DTOs.UpdatePostDto
+@{
+    ViewData["Title"] = "Editar Post";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2 class="mb-0">
+                        <span class="leaf-decoration"></span>
+                        Editar Escrito
+                        <span class="leaf-decoration"></span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <input asp-for="Id" type="hidden" />
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Título</label>
+                            <input asp-for="Title" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Resumo</label>
+                            <textarea asp-for="Summary" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select asp-for="Category" class="form-control">
+                                <option value="CienciasSociais">Ciências Sociais</option>
+                                <option value="SaudeMental">Saúde Mental</option>
+                                <option value="Carreira">Carreira</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Conteúdo</label>
+                            <textarea asp-for="Content" class="form-control" rows="15"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tags (separadas por vírgula)</label>
+                            <input type="text" id="tagsInput" class="form-control" 
+                                   value="@string.Join(", ", Model.Tags)" />
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsPublished" type="checkbox" class="form-check-input" />
+                            <label asp-for="IsPublished" class="form-check-label">Publicado</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/Admin" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Salvar Alterações
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('tagsInput').addEventListener('blur', function() {
+    const tags = this.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+    const form = this.closest('form');
+    
+    form.querySelectorAll('input[name^="Tags"]').forEach(input => input.remove());
+    
+    tags.forEach((tag, index) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `Tags[${index}]`;
+        input.value = tag;
+        form.appendChild(input);
+    });
+});
+
+// Inicializar tags ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('tagsInput').dispatchEvent(new Event('blur'));
+});
+</script>

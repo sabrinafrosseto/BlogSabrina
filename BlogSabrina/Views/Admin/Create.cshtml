@@ -1,0 +1,91 @@
+@model BlogSabrina.Application.DTOs.CreatePostDto
+@{
+    ViewData["Title"] = "Novo Post";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h2 class="mb-0">
+                        <span class="leaf-decoration"></span>
+                        Novo Escrito
+                        <span class="leaf-decoration"></span>
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Título</label>
+                            <input asp-for="Title" class="form-control" placeholder="O título do seu escrito..." />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Resumo</label>
+                            <textarea asp-for="Summary" class="form-control" rows="3" 
+                                      placeholder="Um breve resumo que desperte a curiosidade..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select asp-for="Category" class="form-control">
+                                <option value="">Escolha uma categoria...</option>
+                                <option value="CienciasSociais">Ciências Sociais</option>
+                                <option value="SaudeMental">Saúde Mental</option>
+                                <option value="Carreira">Carreira</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Conteúdo</label>
+                            <textarea asp-for="Content" class="form-control" rows="15" 
+                                      placeholder="Deixe suas palavras fluírem como folhas ao vento..."></textarea>
+                            <small class="form-text text-muted">Você pode usar HTML para formatação.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tags (separadas por vírgula)</label>
+                            <input type="text" id="tagsInput" class="form-control" 
+                                   placeholder="reflexão, crescimento, sabedoria..." />
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input asp-for="IsPublished" type="checkbox" class="form-check-input" checked />
+                            <label asp-for="IsPublished" class="form-check-label">Publicar imediatamente</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/Admin" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-left"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save"></i> Salvar Post
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('tagsInput').addEventListener('blur', function() {
+    const tags = this.value.split(',').map(tag => tag.trim()).filter(tag => tag);
+    // Criar campos hidden para as tags
+    const form = this.closest('form');
+    
+    // Remove campos de tags existentes
+    form.querySelectorAll('input[name^="Tags"]').forEach(input => input.remove());
+    
+    // Adiciona novos campos
+    tags.forEach((tag, index) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `Tags[${index}]`;
+        input.value = tag;
+        form.appendChild(input);
+    });
+});
+</script>
