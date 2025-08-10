@@ -2,12 +2,22 @@ using BlogSabrina.Application.Services;
 using BlogSabrina.Domain.Interfaces;
 using BlogSabrina.Infrastructure.Data;
 using BlogSabrina.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Login";
+        options.LogoutPath = "/Auth/Logout";
+        options.ExpireTimeSpan = TimeSpan.FromHours(24);
+    });
 
 // Database
 builder.Services.AddDbContext<BlogContext>(options =>
@@ -16,6 +26,7 @@ builder.Services.AddDbContext<BlogContext>(options =>
 // DI
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<BlogService>();
+builder.Services.AddScoped<AuthService>();
 
 var app = builder.Build();
 
@@ -42,6 +53,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

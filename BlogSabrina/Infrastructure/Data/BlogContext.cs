@@ -9,6 +9,7 @@ namespace BlogSabrina.Infrastructure.Data
         public BlogContext(DbContextOptions<BlogContext> options) : base(options) { }
 
         public DbSet<BlogPost> Posts { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +28,15 @@ namespace BlogSabrina.Infrastructure.Data
                         v => JsonSerializer.Deserialize<List<string>>(v, (JsonSerializerOptions?)null) ?? new List<string>());
             });
 
+            // User configuration
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Username).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.PasswordHash).IsRequired();
+                entity.HasIndex(e => e.Username).IsUnique();
+            });
+
             // Seed data
             modelBuilder.Entity<BlogPost>().HasData(
                 new BlogPost
@@ -41,6 +51,17 @@ namespace BlogSabrina.Infrastructure.Data
                     Slug = "bem-vindos-ao-meu-refugio-digital",
                     Tags = new List<string> { "boas-vindas", "reflexão", "jornada" },
                     IsPublished = true
+                }
+            );
+
+            // Default user (senha: blog2025)
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = 1,
+                    Username = "sabrina",
+                    PasswordHash = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", // blog2025 hasheado
+                    CreatedAt = DateTime.Now
                 }
             );
         }

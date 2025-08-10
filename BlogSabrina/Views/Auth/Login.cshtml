@@ -1,0 +1,76 @@
+@{
+    ViewData["Title"] = "Entrada Sagrada";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header text-center bg-gradient-primary text-white">
+                    <h2 class="mb-0">
+                        <span class="leaf-decoration"></span>
+                        Entrada Sagrada
+                        <span class="leaf-decoration"></span>
+                    </h2>
+                    <p class="mb-0 mt-2">Acesso ao Refúgio das Palavras</p>
+                </div>
+                <div class="card-body p-5">
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger text-center">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            @ViewBag.Error
+                        </div>
+                    }
+
+                    <form method="post">
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-person-circle"></i> Guardião
+                            </label>
+                            <input name="username" type="text" class="form-control form-control-lg" 
+                                   placeholder="Nome do guardião..." required />
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">
+                                <i class="bi bi-key"></i> Palavra Secreta
+                            </label>
+                            <input name="password" type="password" class="form-control form-control-lg" 
+                                   placeholder="Sussurre a palavra mágica..." required />
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-door-open"></i>
+                                Adentrar o Refúgio
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a href="/" class="text-muted">
+                            <i class="bi bi-arrow-left"></i> Voltar ao jardim público
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--forest-green), var(--sage-green));
+}
+
+.card {
+    border: 3px solid var(--sage-green);
+    border-radius: 20px;
+}
+
+.form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+</style>

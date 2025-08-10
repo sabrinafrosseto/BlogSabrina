@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BlogSabrina.Application.Services;
 using BlogSabrina.Application.DTOs;
@@ -5,6 +6,7 @@ using BlogSabrina.Domain.Entities;
 
 namespace BlogSabrina.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly BlogService _blogService;
