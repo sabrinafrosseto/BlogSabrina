@@ -54,16 +54,7 @@ namespace BlogSabrina.Infrastructure.Data
                 }
             );
 
-            // Default user (senha: blog2025)
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = 1,
-                    Username = "sabrina",
-                    PasswordHash = "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", // blog2025 hasheado
-                    CreatedAt = DateTime.Now
-                }
-            );
+            // Usuário padrão será criado dinamicamente no Program.cs
         }
     }
 }

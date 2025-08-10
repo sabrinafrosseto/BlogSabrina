@@ -35,6 +35,29 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<BlogContext>();
     context.Database.EnsureCreated();
+    
+    // Criar usuário padrão se não existir
+    if (!context.Users.Any())
+    {
+        var authService = scope.ServiceProvider.GetRequiredService<BlogSabrina.Application.Services.AuthService>();
+        var defaultUser = new BlogSabrina.Domain.Entities.User
+        {
+            Username = "sabrina",
+            PasswordHash = HashPassword("blog2025"),
+            CreatedAt = DateTime.Now
+        };
+        context.Users.Add(defaultUser);
+        context.SaveChanges();
+    }
+}
+
+static string HashPassword(string password)
+{
+    using var sha256 = System.Security.Cryptography.SHA256.Create();
+    var salt = "BlogSabrina2025";
+    var saltedPassword = password + salt;
+    var hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(saltedPassword));
+    return Convert.ToBase64String(hashedBytes);
 }
 
 // Configure for production
