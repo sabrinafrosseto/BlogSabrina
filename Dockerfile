@@ -4,14 +4,13 @@ EXPOSE 10000
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["BlogSabrina/BlogSabrina.csproj", "BlogSabrina/"]
-RUN dotnet restore "BlogSabrina/BlogSabrina.csproj"
 COPY . .
 WORKDIR "/src/BlogSabrina"
-RUN dotnet build "BlogSabrina.csproj" -c Release -o /app/build
+RUN dotnet restore
+RUN dotnet build -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "BlogSabrina.csproj" -c Release -o /app/publish
+RUN dotnet publish -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
